@@ -228,8 +228,8 @@ func (w *watch) do(influence string) {
 										}
 
 										if contain {
-											resource = fmt.Sprintf("%s    ( link: [twitter detail](%s) )", resource, link)
-											content = fmt.Sprintf("- datetime: %v, post: %s", datetime.Format("2006-01-02 15:04:05"), resource)
+											resource = fmt.Sprintf("%s    ( <font color=\"info\">link</font>: [twitter detail](%s) )", resource, link)
+											content = fmt.Sprintf("- <font color=\"info\">datetime</font>: %v, <font color=\"info\">post</font>: %s", datetime.Format("2006-01-02 15:04:05"), resource)
 											saveList = append(saveList, model.TwitterPoster{
 												Poster:        influence,
 												Content:       resource,
