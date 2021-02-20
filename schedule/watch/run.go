@@ -33,35 +33,35 @@ import (
 //Charles Hoskinson https://twitter.com/IOHK_Charles
 
 func Run(cmd *cobra.Command, args []string) {
-	db := service.GetDefaultDb()
-
-	influences := []model.TwitterInfluence{}
-
-	if err := db.Model(&model.TwitterInfluence{}).Where("enable = 1").Find(&influences).Error; err != nil {
-		logrus.Error(err)
-		return
-	}
-
-	coins := []model.Coin{}
-
-	if err := db.Model(&model.Coin{}).Where("enable = 1").Find(&coins).Error; err != nil {
-		logrus.Error(err)
-		return
-	}
-
-	if len(influences) == 0 || len(coins) == 0 {
-		wx.SendEnterpriseWx(fmt.Sprintf("influences: %d, coin: %d.", len(influences), len(coins)), "text")
-		return
-	}
-
-	w := NewWatch(influences, coins)
-	if w == nil {
-		return
-	}
-
-	defer w.close()
 
 	gtimer.AddSingleton(30*time.Second, func() {
+		db := service.GetDefaultDb()
+		influences := []model.TwitterInfluence{}
+
+		if err := db.Model(&model.TwitterInfluence{}).Where("enable = 1").Find(&influences).Error; err != nil {
+			logrus.Error(err)
+			return
+		}
+
+		coins := []model.Coin{}
+
+		if err := db.Model(&model.Coin{}).Where("enable = 1").Find(&coins).Error; err != nil {
+			logrus.Error(err)
+			return
+		}
+
+		if len(influences) == 0 || len(coins) == 0 {
+			wx.SendEnterpriseWx(fmt.Sprintf("influences: %d, coin: %d.", len(influences), len(coins)), "text")
+			return
+		}
+
+		w := NewWatch(influences, coins)
+		if w == nil {
+			return
+		}
+
+		defer w.close()
+
 		w.wg.Add(len(w.influences))
 		for influence := range w.influences {
 			w.gcroutineLimit <- false
