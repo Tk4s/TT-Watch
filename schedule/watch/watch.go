@@ -76,6 +76,7 @@ func NewWatch(influences []model.TwitterInfluence, coins []model.Coin) *watch {
 	w.wg = &sync.WaitGroup{}
 	w.requester = &fasthttp.Client{}
 	w.gcroutineLimit = make(chan bool, 5)
+	w.loc, _ = time.LoadLocation("Asia/Shanghai")
 
 	return w
 }
@@ -169,7 +170,8 @@ func (w *watch) do(influence string) {
 
 									if date, err := tweet.FindElement(selenium.ByCSSSelector, "time"); err == nil {
 										dateStr, _ = date.GetAttribute("datetime")
-										datetime, _ = time.ParseInLocation("2006-01-02T15:04:05Z00:00", dateStr, w.loc)
+										datetime, _ = time.ParseInLocation(time.RFC3339, dateStr, time.Local)
+										datetime = datetime.In(w.loc)
 									}
 
 									datetimeDecimal := decimal.NewFromInt(datetime.Unix())
