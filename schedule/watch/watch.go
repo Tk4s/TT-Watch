@@ -163,6 +163,10 @@ func (w *watch) do(influence string) {
 									var content, dateStr string
 									var body []string
 									var datetime time.Time
+									var link string
+
+									link, _ = aTags[2].GetAttribute("href")
+
 									if date, err := tweet.FindElement(selenium.ByCSSSelector, "time"); err == nil {
 										dateStr, _ = date.GetAttribute("datetime")
 										datetime, _ = time.ParseInLocation(time.RFC3339, dateStr, w.loc)
@@ -224,6 +228,7 @@ func (w *watch) do(influence string) {
 										}
 
 										if contain {
+											resource = resource + " link: " + link
 											content = fmt.Sprintf("- datetime: %v, post: %s", datetime.Format("2006-01-02 15:04:05"), resource)
 											saveList = append(saveList, model.TwitterPoster{
 												Poster:        influence,
