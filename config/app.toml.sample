@@ -1,0 +1,57 @@
+debug=true
+env = "dev"
+
+[database]
+[database.dev]
+[database.dev.default]
+username="root"
+password="asdasdasd"
+host="127.0.0.1"
+port=3306
+database="strategy"
+charset="utf8mb4"
+parse_time="true"
+loc = "Local"
+max_ide = 10
+max_open = 100
+
+[redis]
+[redis.dev]
+address = "127.0.0.1:6379"
+db = 0
+network = "tcp"
+password = ""
+[redis.pro]
+address = "172.24.253.121:30003"
+db = 3
+network = "tcp"
+password = "TWQy2TA4ZVQdkCGaHmakQ"
+
+
+
+[kucoin.futures]
+api_key = ""
+api_secret = ""
+api_phasshrase = ""
+uri = "https://api-futures.kucoin.com"
+
+[kucoin.trade]
+api_key = ""
+api_secret = ""
+api_phasshrase = ""
+uri = "https://api.kucoin.com"
+
+[bitmex.futures]
+api_key = "-1"
+api_secret = "-"
+[bybit.futures]
+api_key = ""
+api_secret = ""
+uri = "https://api-testnet.bybit.com"
+[okex.futures]
+api_key = ""
+api_secret = ""
+[binance.futures]
+api_key = ""
+api_secret = ""
+

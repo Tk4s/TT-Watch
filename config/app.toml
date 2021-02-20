@@ -1,0 +1,52 @@
+debug=true
+env = "dev"
+auth_key = "25SYTaom2Q3NDHYkh4NECRxYFk4pXEsjtRvX"
+port = ":8888"
+
+[dingtalk]
+secret=""
+access_token=""
+keyword=""
+uri = "https://oapi.dingtalk.com/robot/send"
+send=true
+send_user=["17380487218"]
+
+[database]
+[database.dev]
+[database.dev.default]
+username="nac"
+password="asdasdasd"
+host="127.0.0.1"
+port=3306
+database="insiders"
+charset="utf8mb4"
+parse_time="true"
+loc = "Local"
+max_ide = 10
+max_open = 100
+[database.pro]
+[database.pro.default]
+username="strategy"
+password="ByisFAivZ6ZSj78n"
+host="127.0.0.1"
+port=3306
+database="strategy"
+charset="utf8mb4"
+parse_time="true"
+loc = "Local"
+max_ide = 10
+max_open = 100
+
+[redis]
+[redis.dev]
+address = "127.0.0.1:6379"
+db = 0
+network = "tcp"
+password = ""
+[redis.pro]
+address = "127.0.0.1:6379"
+db = 0
+network = "tcp"
+password = "kbQcXNXRkn49ZyX3HMCqoZ7C"
+
+

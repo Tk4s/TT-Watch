@@ -79,7 +79,7 @@ func (w *watch) getCapabilities(webDriver string, proxy string, agent string) (s
 		Prefs: imgCaps,
 		Path:  "",
 		Args: []string{
-			//"--headless",
+			"--headless",
 			"--start-maximized",
 			"--no-sandbox",
 			fmt.Sprintf("--user-agent=%s", agent),
