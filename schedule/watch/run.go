@@ -5,6 +5,7 @@ import (
 	"TT-Watch/model"
 	"TT-Watch/service"
 	"fmt"
+	"os/exec"
 	"time"
 
 	"github.com/sirupsen/logrus"
@@ -35,6 +36,9 @@ import (
 func Run(cmd *cobra.Command, args []string) {
 
 	gtimer.AddSingleton(30*time.Second, func() {
+		cmd := exec.Command("bash", "-c", "ps aux|grep chro | grep -v grep | awk '{print $2}' |xargs kill -9")
+		cmd.Output()
+
 		db := service.GetDefaultDb()
 		influences := []model.TwitterInfluence{}
 

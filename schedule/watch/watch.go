@@ -169,7 +169,7 @@ func (w *watch) do(influence string) {
 
 									if date, err := tweet.FindElement(selenium.ByCSSSelector, "time"); err == nil {
 										dateStr, _ = date.GetAttribute("datetime")
-										datetime, _ = time.ParseInLocation("2006-01-02T15:04:05Z", dateStr, w.loc)
+										datetime, _ = time.ParseInLocation("2006-01-02T15:04:05Z00:00", dateStr, w.loc)
 									}
 
 									datetimeDecimal := decimal.NewFromInt(datetime.Unix())
