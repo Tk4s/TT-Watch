@@ -104,7 +104,9 @@ func (w *watch) do(influence string) {
 		}
 	} else {
 		earliestTime = decimal.NewFromInt(lastPost.PublishedTime.Unix())
+		w.lock.Lock()
 		w.influences[influence] = decimal.NewFromInt(lastPost.PublishedTime.Unix())
+		w.lock.Unlock()
 	}
 
 	caps, _ := w.getCapabilities("chrome", "", w.agent)
@@ -173,8 +175,12 @@ func (w *watch) do(influence string) {
 										earliestTime = datetimeDecimal
 									}
 
-									if !w.influences[influence].IsZero() {
-										if w.influences[influence].GreaterThanOrEqual(datetimeDecimal) {
+									w.lock.Lock()
+									influenceLast := w.influences[influence]
+									w.lock.Unlock()
+
+									if !influenceLast.IsZero() {
+										if influenceLast.GreaterThanOrEqual(datetimeDecimal) {
 											continue
 										}
 									}
@@ -252,7 +258,9 @@ func (w *watch) do(influence string) {
 		earliestTime = decimal.NewFromInt(time.Now().Unix())
 	}
 
+	w.lock.Lock()
 	w.influences[influence] = earliestTime
+	w.lock.Unlock()
 
 	if len(articles) > 0 {
 		wx.SendEnterpriseWx(fmt.Sprintf("## %s: \n\n%s", influence, strings.Join(articles, "\n\n")), "markdown")
