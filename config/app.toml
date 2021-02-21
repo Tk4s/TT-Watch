@@ -26,11 +26,11 @@ max_ide = 10
 max_open = 100
 [database.pro]
 [database.pro.default]
-username="strategy"
+username="insider"
 password="ByisFAivZ6ZSj78n"
 host="127.0.0.1"
 port=3306
-database="strategy"
+database="insiders"
 charset="utf8mb4"
 parse_time="true"
 loc = "Local"
